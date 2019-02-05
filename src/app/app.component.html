@@ -12,7 +12,7 @@
 
     <ul class="items">
       <li *ngFor="let item of items">
-        {{item.text}}
+        <app-element-component type="show" [item]="item"></app-element-component>
       </li>
     </ul>
   </div>

@@ -32,8 +32,37 @@ export class IOService {
     this.setAll(db);
   }
 
-  public setItem() {
-    
+  public setItem(item) {
+    if (item && item.id) {
+      const db = this.getAll();
+      db.forEach( dbItem => {
+        if (dbItem.id === item.id) {
+          dbItem.text = item.text;
+          dbItem.completed = item.completed;
+          dbItem.archive = item.archive;
+        }
+      });
+
+      this.setAll(db);
+    }
+  }
+
+  public removeItem(id) {
+    if (id) {
+      let index = null;
+
+      const db = this.getAll();
+      db.forEach( (dbItem, dbKey) => {
+        if (dbItem.id === id) {
+          index = dbKey;
+        }
+      });
+
+      if (index !== null) {
+        db.splice(index, 1);
+        this.setAll(db);
+      }
+    }
   }
 
   private setAll(db) {

@@ -1,10 +1,13 @@
 <div class="element-div">
   <div class="element-buttons" *ngIf="type !== 'add'">
+    <button class="btn button-edit" (click)="onEditClick()" [disabled]="type == 'edit'">edit</button>
     <button class="btn button-complete" (click)="onCompleteClick()" [disabled]="type == 'edit'">complete</button>
     <button class="btn button-archive" (click)="onArchiveClick()" [disabled]="type == 'edit'">archive</button>
     <button class="btn button-remove" (click)="onRemoveClick()" [disabled]="type == 'edit'">remove</button>
   </div>
-  <span *ngIf="type !== 'add'">{{value}}</span>
-  <input type="text" *ngIf="type !== 'show'" [(ngModel)]="value">
-  <button class="btn button-add" (click)="onAddClick()" *ngIf="type == 'add'" [disabled]="!value">Add</button>
+
+  <span *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.text}}</span>
+
+  <input #input type="text" *ngIf="type !== 'show'" [(ngModel)]="item.text" (blur)="onBlur()">
+  <button class="btn button-add" (click)="onAddClick()" *ngIf="type == 'add'" [disabled]="!item.text">Add</button>
 </div>

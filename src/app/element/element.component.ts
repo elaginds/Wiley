@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { IOService } from '../services/io.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-element-component',
@@ -7,28 +8,56 @@ import { IOService } from '../services/io.service';
   styleUrls: ['./element.component.css']
 })
 export class ElementComponent {
-  @Input() value = '';
+  text = '';
+
+  @Input() item = {
+    id: null,
+    text: '',
+    completed: false,
+    archive: false,
+    date: null
+  };
 
   @Input() type = 'show';
+
+  @ViewChild('input') inputElement: ElementRef;
 
   constructor(private io: IOService) {
 
   }
 
   onAddClick() {
-    this.io.addItem(this.value);
-    this.value = '';
+    this.io.addItem(this.item.text);
+    this.item.text = '';
   }
 
   onCompleteClick() {
-    console.log('complete');
+    this.item.completed = !this.item.completed;
+    this.io.setItem(this.item);
   }
 
   onArchiveClick() {
-    console.log('onArchiveClick');
+    this.item.archive = !this.item.archive;
+    this.io.setItem(this.item);
   }
 
   onRemoveClick() {
-    console.log('onRemoveClick');
+    this.io.removeItem(this.item.id);
+  }
+
+  onEditClick() {
+    this.text = this.item.text;
+    this.type = 'edit';
+    setTimeout( () => {
+      this.inputElement.nativeElement.focus();
+    }, 10);
+  }
+
+  onBlur() {
+    if (this.text !== this.item.text) {
+      this.io.setItem(this.item);
+    }
+
+    this.type = 'show';
   }
 }
