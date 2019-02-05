@@ -1,11 +1,17 @@
 <main class="main">
   <div class="container">
 
+    <div class="filter-select">
+      <select class="filter-select" (change)="onSelectFilter($event.target.value)" [(ngModel)]="filterValue">
+        <option *ngFor="let option of filterOptions" value="{{option.value}}">{{option.label}}</option>
+      </select>
+    </div>
+
     <app-element-component type="add"></app-element-component>
 
     <div class="header">
-      <select class="filter-select" (change)="onSelectSort($event.target.value)">
-        <option *ngFor="let option of selectOptions" value="{{option.value}}">{{option.label}}</option>
+      <select class="sort-select" (change)="onSelectSort($event.target.value)" [(ngModel)]="sortValue">
+        <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.label}}</option>
       </select>
     </div>
 
