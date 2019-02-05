@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IOService } from './services/io.service';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  isShowNewElement = false;
+export class AppComponent implements OnInit {
+  items = [];
 
+  constructor(private io: IOService) {
+    io.refreshItems$.subscribe( () => this.getItems());
+  }
 
-  onNewButtonClick() {
-    this.isShowNewElement = true;
+  ngOnInit() {
+    this.getItems();
+  }
+
+  getItems() {
+    this.items = this.io.getAll();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IOService } from '../services/io.service';
 
 @Component({
   selector: 'app-element-component',
@@ -6,13 +7,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./element.component.css']
 })
 export class ElementComponent {
-
-  @Input() value = 'value';
+  @Input() value = '';
 
   @Input() type = 'show';
 
+  constructor(private io: IOService) {
+
+  }
+
   onAddClick() {
-    console.log('onAddClick');
+    this.io.addItem(this.value);
+    this.value = '';
   }
 
   onCompleteClick() {

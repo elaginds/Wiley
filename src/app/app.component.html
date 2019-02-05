@@ -1,16 +1,19 @@
 <main class="main">
   <div class="container">
 
+    <app-element-component type="add"></app-element-component>
+
     <div class="header">
-      <button class="new-button" (click)="onNewButtonClick()">new</button>
       <select class="filter-select">
         <option>1</option>
         <option>2</option>
       </select>
     </div>
 
-    <app-element-component type="add" *ngIf="isShowNewElement"></app-element-component>
-    <app-element-component type="show" *ngIf="isShowNewElement"></app-element-component>
-
+    <ul class="items">
+      <li *ngFor="let item of items">
+        {{item.text}}
+      </li>
+    </ul>
   </div>
 </main>
