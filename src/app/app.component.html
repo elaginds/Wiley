@@ -4,9 +4,8 @@
     <app-element-component type="add"></app-element-component>
 
     <div class="header">
-      <select class="filter-select">
-        <option>1</option>
-        <option>2</option>
+      <select class="filter-select" (change)="onSelectSort($event.target.value)">
+        <option *ngFor="let option of selectOptions" value="{{option.value}}">{{option.label}}</option>
       </select>
     </div>
 

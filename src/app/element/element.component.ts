@@ -22,13 +22,13 @@ export class ElementComponent {
 
   @ViewChild('input') inputElement: ElementRef;
 
-  constructor(private io: IOService) {
-
-  }
+  constructor(private io: IOService) {}
 
   onAddClick() {
+    console.log('add');
     this.io.addItem(this.item.text);
     this.item.text = '';
+    console.log(this.type);
   }
 
   onCompleteClick() {
@@ -54,6 +54,10 @@ export class ElementComponent {
   }
 
   onBlur() {
+    if (this.type === 'add') {
+      return true;
+    }
+
     if (this.text !== this.item.text) {
       this.io.setItem(this.item);
     }

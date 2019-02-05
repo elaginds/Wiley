@@ -9,5 +9,6 @@
   <span *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.text}}</span>
 
   <input #input type="text" *ngIf="type !== 'show'" [(ngModel)]="item.text" (blur)="onBlur()">
+
   <button class="btn button-add" (click)="onAddClick()" *ngIf="type == 'add'" [disabled]="!item.text">Add</button>
 </div>
