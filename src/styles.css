@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~roboto-fontface/css/roboto/roboto-fontface.css';
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+body, html {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.mat-checkbox-inner-container {
+  height: 25px !important;
+  width: 25px !important;
+}

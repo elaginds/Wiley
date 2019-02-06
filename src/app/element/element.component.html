@@ -1,47 +1,66 @@
 <div class="element-div">
   <div class="element-buttons" *ngIf="type !== 'add'">
-    <button class="fa fa-edit btn"
+
+    <mat-checkbox [(ngModel)]="item.completed"
+                  title="{{item.completed ? 'Выполнено' : 'Не выполнено'}}"
+                  (click)="onCompleteClick()"
+                  [disabled]="type == 'edit'">
+    </mat-checkbox>
+
+    <button mat-raised-button
+            color="primary"
+            class="fa fa-edit btn"
             title="Редактировать"
             (click)="onEditClick()"
             [disabled]="type == 'edit'">
     </button>
 
-    <button class="fa btn"
-            [ngClass]="{'fa-check-square-o': item.completed, 'fa-square-o': !item.completed}"
-            title="{{item.completed ? 'Выполнено' : 'Не выполнено'}}"
-            (click)="onCompleteClick()"
-            [disabled]="type == 'edit'">
-    </button>
-
-    <button class="fa btn"
+    <button mat-raised-button
+            class="fa btn"
             [ngClass]="{'fa-arrow-circle-o-up': item.archive, 'fa-arrow-circle-o-down': !item.archive}"
             title="{{item.archive ? 'Из архива' : 'В архив'}}"
             (click)="onArchiveClick()"
             [disabled]="type == 'edit'">
     </button>
 
-    <button class="fa fa-times btn"
+    <button mat-raised-button
+            color="warn"
+            class="fa fa-times btn"
             title="Удалить"
             (click)="onRemoveClick()"
             [disabled]="type == 'edit'">
     </button>
   </div>
 
-  <span *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.title}}</span>
-  <span *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.text}}</span>
+  <div class="inputs-text">
+    <span class="title-span" *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.title}}</span>
+    <span class="text-span" *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.text}}</span>
 
-  <input #input type="title"
-         *ngIf="type !== 'show'"
-         [(ngModel)]="item.title"
-         (blur)="onBlur()"
-         (keypress)="onKeyPress($event)">
-  <input #input type="text"
-         *ngIf="type !== 'show'"
-         [(ngModel)]="item.text"
-         (blur)="onBlur()"
-         (focus)="onFocus()"
-         (keypress)="onKeyPress($event)">
+     <input            placeholder="Заголовок"
+           #input
+            type="title"
+           *ngIf="type !== 'show'"
+           [(ngModel)]="item.title"
+           (blur)="onBlur()"
+           (keypress)="onKeyPress($event)">
+
+    <input            placeholder="Текст задачи"
+           #input
+           type="text"
+           *ngIf="type !== 'show'"
+           [(ngModel)]="item.text"
+           (blur)="onBlur()"
+           (focus)="onFocus()"
+           (keypress)="onKeyPress($event)">
 
 
-  <button class="btn button-add" (click)="onAddClick()" *ngIf="type == 'add'" [disabled]="!item.text || !item.title">Add</button>
+    <button mat-raised-button
+            color="accent"
+            class="fa fa-plus-circle btn btn-add"
+            title="Добавить"
+            (click)="onAddClick()"
+            *ngIf="type == 'add'"
+            [disabled]="!item.text || !item.title">
+    </button>
+  </div>
 </div>

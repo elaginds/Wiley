@@ -9,7 +9,7 @@ import * as moment from 'moment';
 })
 
 export class AppComponent implements OnInit {
-  filterValue = 'work';
+  filterValue = 'all';
   sortValue = 'text_asc';
   filterOptions = [
     {
@@ -50,18 +50,20 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filterValue = 'all';
+    this.sortValue = 'text_asc';
     this.getItems();
   }
 
   getItems() {
     this.originalItems = this.io.getAll();
-    this.filterValue = 'work';
-    this.onSelectFilter('work');
-    this.sortValue = 'text_asc';
-    this.onSelectSort('text_asc');
+    this.onSelectFilter();
+    this.onSelectSort();
   }
 
-  onSelectFilter(type) {
+  onSelectFilter() {
+    const type = this.filterValue;
+
     this.items = this.originalItems.filter( item => {
       if (type === 'all') {
         return true;
@@ -79,9 +81,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onSelectSort(value) {
-    const type = value.substr(0, value.indexOf('_'));
-    const direction = value.substr(value.indexOf('_') + 1) || 'asc';
+  onSelectSort() {
+    const type = this.sortValue.substr(0, this.sortValue.indexOf('_'));
+    const direction = this.sortValue.substr(this.sortValue.indexOf('_') + 1) || 'asc';
 
     this.items.sort((itemA, itemB) => {
       const a = itemA[type].toLowerCase();

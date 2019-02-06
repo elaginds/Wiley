@@ -1,5 +1,9 @@
+:host {
+  width: 100%;
+}
+
 .element-div {
-  height: 30px;
+  height: 50px;
   width: 100%;
 }
 
@@ -7,10 +11,45 @@
   float: left;
 }
 
+.btn {
+  margin: 0 3px;
+}
+
 .completed {
-  text-decoration: underline;
+  text-decoration: line-through	;
 }
 
 .archive {
   opacity: 0.5;
+}
+
+.inputs-text {
+  height: 50px;
+  line-height: 35px;
+}
+
+.btn-add {
+  top: -3px;
+}
+
+.inputs-text input {
+  margin: 0 5px;
+  height: 35px;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 24px;
+}
+
+.title-span {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+.text-span {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+}
+
+.mat-checkbox {
+  margin-right: 10px;
 }

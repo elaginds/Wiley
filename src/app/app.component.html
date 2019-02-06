@@ -1,24 +1,28 @@
 <main class="main">
   <div class="container">
 
-    <div class="filter-select">
-      <select class="filter-select" (change)="onSelectFilter($event.target.value)" [(ngModel)]="filterValue">
-        <option *ngFor="let option of filterOptions" value="{{option.value}}">{{option.label}}</option>
-      </select>
-    </div>
+    <mat-form-field class="select-filter">
+      <mat-select placeholder="Показывать" (selectionChange)="onSelectFilter()" [(ngModel)]="filterValue">
+        <mat-option *ngFor="let option of filterOptions" [value]="option.value">
+          {{option.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Сортировать" (selectionChange)="onSelectSort()" [(ngModel)]="sortValue">
+        <mat-option *ngFor="let option of sortOptions" [value]="option.value">
+          {{option.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <app-element-component type="add"></app-element-component>
 
-    <div class="header">
-      <select class="sort-select" (change)="onSelectSort($event.target.value)" [(ngModel)]="sortValue">
-        <option *ngFor="let option of sortOptions" value="{{option.value}}">{{option.label}}</option>
-      </select>
-    </div>
-
-    <ul class="items">
-      <li *ngFor="let item of items">
+    <mat-list class="items">
+      <mat-list-item *ngFor="let item of items">
         <app-element-component type="show" [item]="item"></app-element-component>
-      </li>
-    </ul>
+      </mat-list-item>
+    </mat-list>
   </div>
 </main>
