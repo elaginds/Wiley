@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <!--Сортировка задач-->
-    <mat-form-field>
+    <mat-form-field class="select-sort">
       <mat-select placeholder="Сортировать" (selectionChange)="onSelectSort()" [(ngModel)]="sortValue">
         <mat-option *ngFor="let option of sortOptions" [value]="option.value">
           {{option.label}}

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   filterValue = 'all';
 
   /*Тип сортировки*/
-  sortValue = 'text_asc';
+  sortValue = 'title_desc';
 
   /*Опции для селектора фильтра*/
   filterOptions = [
@@ -46,8 +46,11 @@ export class AppComponent implements OnInit {
       value: 'id_asc',
       label: 'По дате, сначала старые'
     }, {
-      value: 'text_asc',
+      value: 'title_asc',
       label: 'По алфавиту'
+    }, {
+      value: 'title_desc',
+      label: 'По алфавиту в обратном порядке'
     }];
 
   /*Массив всех задач*/
@@ -100,8 +103,8 @@ export class AppComponent implements OnInit {
     const direction = this.sortValue.substr(this.sortValue.indexOf('_') + 1) || 'asc';
 
     this.items.sort((itemA, itemB) => {
-      const a = itemA[type].toLowerCase();
-      const b = itemB[type].toLowerCase();
+      const a = itemA[type].toLowerCase ? itemA[type].toLowerCase() : itemA[type];
+      const b = itemB[type].toLowerCase ? itemB[type].toLowerCase() : itemB[type];
 
       if (((a > b) && direction === 'asc') || ((a < b) && direction === 'desc')) {
         return 1;
