@@ -8,10 +8,13 @@ import * as moment from 'moment';
   styleUrls: ['./element.component.css']
 })
 export class ElementComponent {
+  timeout = null;
   text = '';
+  title = '';
 
   @Input() item = {
     id: null,
+    title: '',
     text: '',
     completed: false,
     archive: false,
@@ -25,10 +28,9 @@ export class ElementComponent {
   constructor(private io: IOService) {}
 
   onAddClick() {
-    console.log('add');
-    this.io.addItem(this.item.text);
+    this.io.addItem(this.item.title, this.item.text);
+    this.item.title = '';
     this.item.text = '';
-    console.log(this.type);
   }
 
   onCompleteClick() {
@@ -46,6 +48,7 @@ export class ElementComponent {
   }
 
   onEditClick() {
+    this.title = this.item.title;
     this.text = this.item.text;
     this.type = 'edit';
     setTimeout( () => {
@@ -58,10 +61,28 @@ export class ElementComponent {
       return true;
     }
 
-    if (this.text !== this.item.text) {
-      this.io.setItem(this.item);
-    }
+    this.timeout = setTimeout( () => {
+      if (this.title !== this.item.title || this.text !== this.item.text) {
+        this.io.setItem(this.item);
+      }
 
-    this.type = 'show';
+      this.type = 'show';
+    }, 100);
+  }
+
+  onFocus() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  onKeyPress($event) {
+    if ($event.charCode === 13 && this.item.title && this.item.text) {
+      if (this.type === 'add') {
+        this.onAddClick();
+      } else {
+        this.onBlur();
+      }
+    }
   }
 }

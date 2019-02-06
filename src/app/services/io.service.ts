@@ -19,10 +19,11 @@ export class IOService {
     }
   }
 
-  public addItem(text) {
+  public addItem(title, text) {
     const db = this.getAll();
     db.push({
       id: moment().format('x'),
+      title: title,
       text: text,
       completed: false,
       archive: false,
@@ -37,6 +38,7 @@ export class IOService {
       const db = this.getAll();
       db.forEach( dbItem => {
         if (dbItem.id === item.id) {
+          dbItem.title = item.title;
           dbItem.text = item.text;
           dbItem.completed = item.completed;
           dbItem.archive = item.archive;

@@ -11,27 +11,28 @@ import * as moment from 'moment';
 export class AppComponent implements OnInit {
   filterValue = 'work';
   sortValue = 'text_asc';
-  filterOptions = [{
+  filterOptions = [
+    {
     value: 'all',
     label: 'Все'
-  },{
+  }, {
     label: 'В работе',
     value: 'work'
-  },{
+  }, {
     label: 'Завершенные',
     value: 'completed'
-  },{
+  }, {
     label: 'Архив',
     value: 'archive'
-  },{
+  }, {
     label: 'Сегодня',
     value: 'today'
-  },{
+  }, {
     label: 'Последняя неделя',
     value: 'week'
   }];
-
-  sortOptions = [{
+  sortOptions = [
+    {
     value: 'id_desc',
     label: 'По дате, сначала новые'
   }, {
