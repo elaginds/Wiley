@@ -1,14 +1,20 @@
+/*Сервис для работой с базой данных
+* В данном случае с localStorage*/
+
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import * as moment from 'moment';
 
 @Injectable()
 export class IOService {
+  /*Название элемента в localStorage, в котором сохраняются задачи*/
   private lsName = 'db';
 
+  /*Событие изменения задач*/
   public refreshItemsSource = new Subject<any>();
   refreshItems$ = this.refreshItemsSource.asObservable();
 
+  /*Получить все задачи*/
   public getAll() {
     const db = localStorage.getItem(this.lsName);
 
@@ -19,6 +25,7 @@ export class IOService {
     }
   }
 
+  /*Добавить новую задачу*/
   public addItem(title, text) {
     const db = this.getAll();
     db.push({
@@ -33,6 +40,7 @@ export class IOService {
     this.setAll(db);
   }
 
+  /*Изменить задачу*/
   public setItem(item) {
     if (item && item.id) {
       const db = this.getAll();
@@ -49,6 +57,7 @@ export class IOService {
     }
   }
 
+  /*Удалить задачу*/
   public removeItem(id) {
     if (id) {
       let index = null;
@@ -67,6 +76,7 @@ export class IOService {
     }
   }
 
+  /*Сохранить все задачи*/
   private setAll(db) {
     localStorage.setItem(this.lsName, JSON.stringify(db));
     this.refreshItemsSource.next();

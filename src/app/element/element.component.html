@@ -1,12 +1,16 @@
 <div class="element-div">
+
+  <!--Кнопки управления задачей-->
   <div class="element-buttons" *ngIf="type !== 'add'">
 
+    <!--Чекбокс выполнена/не выполнена задача-->
     <mat-checkbox [(ngModel)]="item.completed"
                   title="{{item.completed ? 'Выполнено' : 'Не выполнено'}}"
                   (click)="onCompleteClick()"
                   [disabled]="type == 'edit'">
     </mat-checkbox>
 
+    <!--Кнопка редактирования задачи-->
     <button mat-raised-button
             color="primary"
             class="fa fa-edit btn"
@@ -15,14 +19,16 @@
             [disabled]="type == 'edit'">
     </button>
 
+    <!--Кнопка отправить в архив/вернуть из архива-->
     <button mat-raised-button
             class="fa btn"
             [ngClass]="{'fa-arrow-circle-o-up': item.archive, 'fa-arrow-circle-o-down': !item.archive}"
-            title="{{item.archive ? 'Из архива' : 'В архив'}}"
+            title="{{item.archive ? 'Вернуть из архива' : 'Отправить в архив'}}"
             (click)="onArchiveClick()"
             [disabled]="type == 'edit'">
     </button>
 
+    <!--Кнопка Удалить задачу-->
     <button mat-raised-button
             color="warn"
             class="fa fa-times btn"
@@ -32,19 +38,26 @@
     </button>
   </div>
 
+  <!--Текстовые поля задачи-->
   <div class="inputs-text">
+
+    <!--Заголовок в режиме Просмотра-->
     <span class="title-span" *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.title}}</span>
+
+    <!--Текст в режиме просмотра-->
     <span class="text-span" *ngIf="type == 'show'" [ngClass]="{'completed': item.completed, 'archive': item.archive}">{{item.text}}</span>
 
-     <input            placeholder="Заголовок"
+    <!--Заголовок в режиме редактирования-->
+    <input placeholder="Заголовок"
            #input
-            type="title"
+           type="title"
            *ngIf="type !== 'show'"
            [(ngModel)]="item.title"
            (blur)="onBlur()"
            (keypress)="onKeyPress($event)">
 
-    <input            placeholder="Текст задачи"
+    <!--Текст в режиме редактирования-->
+    <input placeholder="Текст задачи"
            #input
            type="text"
            *ngIf="type !== 'show'"
@@ -53,7 +66,7 @@
            (focus)="onFocus()"
            (keypress)="onKeyPress($event)">
 
-
+    <!--Кнопка добавить задачу-->
     <button mat-raised-button
             color="accent"
             class="fa fa-plus-circle btn btn-add"
@@ -62,5 +75,6 @@
             *ngIf="type == 'add'"
             [disabled]="!item.text || !item.title">
     </button>
+
   </div>
 </div>

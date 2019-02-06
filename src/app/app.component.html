@@ -1,6 +1,7 @@
 <main class="main">
   <div class="container">
 
+    <!--Фильтр по задачам: все, в работе и т.д.-->
     <mat-form-field class="select-filter">
       <mat-select placeholder="Показывать" (selectionChange)="onSelectFilter()" [(ngModel)]="filterValue">
         <mat-option *ngFor="let option of filterOptions" [value]="option.value">
@@ -9,6 +10,7 @@
       </mat-select>
     </mat-form-field>
 
+    <!--Сортировка задач-->
     <mat-form-field>
       <mat-select placeholder="Сортировать" (selectionChange)="onSelectSort()" [(ngModel)]="sortValue">
         <mat-option *ngFor="let option of sortOptions" [value]="option.value">
@@ -17,12 +19,15 @@
       </mat-select>
     </mat-form-field>
 
+    <!--Новая задача-->
     <app-element-component type="add"></app-element-component>
 
+    <!--Список задач-->
     <mat-list class="items">
       <mat-list-item *ngFor="let item of items">
         <app-element-component type="show" [item]="item"></app-element-component>
       </mat-list-item>
     </mat-list>
+
   </div>
 </main>
